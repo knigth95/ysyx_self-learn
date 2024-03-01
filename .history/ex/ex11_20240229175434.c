@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    // go through each string in argv
+
+    int i = 0;
+    while(i < argc) {
+        printf("arg %d: %s\n", i, argv[i]);
+        i++;
+    }
+
+    i = argc;
+    printf("argc=%d\n", argc);
+	while(i>=0){
+        printf("arg %d: %s\n", i, argv[i]);
+        i--;
+    }
+    // let's make our own array of strings
+    char *states[] = {
+        "California", "Oregon",
+        "Washington", "Texas"
+    };
+    
+    int num_states = 4;
+    i = 0;  // watch for this
+    while(i < num_states) {
+        printf("state %d: %s\n", i, states[i]);
+        i++;
+    }
+	// 将 argv中的值复制到 states 中，限制复制的数量以避免溢出
+    return 0;
+}
