@@ -1,0 +1,1 @@
+struct Address *addr = malloc(max_rows * sizeof(struct Address));
