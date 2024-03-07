@@ -3,7 +3,7 @@
 #define _minunit_h
 
 #include <stdio.h>
-#include "../src/lcthw/dbg.h"
+#include <预学习/复习C语言/ex32/c-skeleton/src/lcthw/dbg.h>
 #include <stdlib.h>
 
 #define mu_suite_start() char *message = NULL

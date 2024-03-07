@@ -4,6 +4,9 @@
         "*.cjson": "jsonc",
         "*.wxss": "css",
         "*.wxs": "javascript",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "list.h": "c",
+        "dbg.h": "c",
+        "stdio.h": "c"
     }
 }
