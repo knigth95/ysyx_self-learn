@@ -104,9 +104,38 @@ char *all_tests() {
     mu_run_test(test_remove);
     mu_run_test(test_shift);
     mu_run_test(test_destroy);
-    
+    mu_run_test(tes)
     return NULL;
 }
 
 RUN_TESTS(all_tests);
 
+#include "minunit.h"
+#include "list.h" // 包含你的链表实现
+
+MU_TEST(test_List_copy) {
+    List *list = List_create();
+    // 添加一些元素到list中
+    List *copy = List_copy(list);
+    // 验证copy中的元素与list相同
+}
+
+MU_TEST(test_List_join) {
+    List *list1 = List_create();
+    List *list2 = List_create();
+    // 添加元素到list1和list2
+    List_join(list1, list2);
+    // 验证list1现在包含list1和list2的元素
+}
+
+MU_TEST_SUITE(list_operations) {
+    MU_RUN_TEST(test_List_copy);
+    MU_RUN_TEST(test_List_join);
+    // 添加更多的测试...
+}
+
+int main(int argc, char *argv[]) {
+    MU_RUN_SUITE(list_operations);
+    MU_REPORT();
+    return 0;
+}

@@ -129,57 +129,7 @@ List *List_copy(List *list) {
     assert(list != NULL);
     List *new_list = List_create();
     LIST_FOREACH(list, first, next, cur) {
-        List_push(new_list, cur->value);
+        List_push(new_list, cur->value); // 假设List_push已经实现
     }
     return new_list;
-}
-void List_join(List *list1, List *list2) {
-    assert(list1 != NULL && list2 != NULL);
-
-    LIST_FOREACH(list2, first, next, cur) {
-        List_push(list1, cur->value);
-    }
-}
-
-List *List_split(List *list, int position) {
-    assert(list != NULL && position >= 0);
-    List *new_list = List_create();
-    int index = 0;
-
-    ListNode *node = list->first;
-    while (node != NULL && index < position) {
-        node = node->next;
-        index++;
-    }
-    // 从当前位置分割链表
-    if (node != NULL) {
-        new_list->first = node;
-        new_list->last = list->last;
-        list->last = node->prev;
-        list->last->next = NULL;
-        node->prev = NULL;
-    }
-
-    // 更新计数
-    new_list->count = position;
-    list->count -= position;
-
-    return new_list;
-}
-void List_reverse(List *list) {
-    assert(list != NULL);
-    ListNode *current = list->first;
-    ListNode *prev = NULL, *next = NULL;
-
-    while (current != NULL) {
-        next = current->next;
-        current->next = prev;
-        current->prev = next;
-        prev = current;
-        current = next;
-    }
-    // 交换首尾指针
-    current = list->first;
-    list->first = list->last;
-    list->last = current;
 }

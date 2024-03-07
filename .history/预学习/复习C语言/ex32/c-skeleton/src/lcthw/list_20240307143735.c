@@ -137,7 +137,7 @@ void List_join(List *list1, List *list2) {
     assert(list1 != NULL && list2 != NULL);
 
     LIST_FOREACH(list2, first, next, cur) {
-        List_push(list1, cur->value);
+        List_push(list1, cur->value); // 假设List_push已经实现
     }
 }
 

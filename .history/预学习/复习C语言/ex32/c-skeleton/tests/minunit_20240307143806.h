@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include "../src/lcthw/dbg.h"
 #include <stdlib.h>
-#include"../src/lcthw/list.h"
 
 #define mu_suite_start() char *message = NULL
 
@@ -27,6 +26,15 @@
     printf("Tests run: %d\n", tests_run);\
         exit(result != 0);\
 }
+
+// file: minunit.h
+#define mu_assert(message, test) do { if (!(test)) return message; } while (0)
+#define mu_run_test(test) do { char *message = test(); tests_run++; \
+                               if (message) return message; } while (0)
+
+extern int tests_run;
+
+
 
 
 int tests_run;
