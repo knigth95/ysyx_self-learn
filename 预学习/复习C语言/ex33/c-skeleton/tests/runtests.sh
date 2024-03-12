@@ -1,2 +1,2 @@
 set -e
-./tests/test_list
+./tests/algos_test

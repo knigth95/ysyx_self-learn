@@ -7,19 +7,18 @@ inline void ListNode_swap(ListNode *a,ListNode *b){
     b->value=temp;
 }
 
-int List_bubble_sort(List *list,List_compare cmp){
+int List_bubble_sort(List *list,List_comare cmp){
     int sorted=1;
     if(List_count(list)<=1) return 0;
-    int i=0;
-    while(i<list->count){
+    do{
+        sorted=1;
         LIST_FOREACH(list,first,next,cur){
-            ListNode *node=cur;
-            ListNode *node_next=cur->next;
-            if(!node_next) break;
-            if(cmp(node->value,node_next->value)>0)
-                ListNode_swap(node,node_next);
+            if(cmp(cur->value,cur->next->value)>0){
+                ListNode_swap(cur,cur->next);
+                sorted=0;
+            }
         }
-    }
+    }while(!sorted);
     return 0;
 }
 

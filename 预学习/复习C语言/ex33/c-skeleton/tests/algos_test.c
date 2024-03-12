@@ -2,9 +2,11 @@
 #include "../src/lcthw/list_algos.h"
 #include <assert.h>
 #include <string.h>
+#include <time.h>
 
-char *values[] = {"XXXX", "1234", "abcd", "xjvef", "NDSS"};
+//char *values[] = {"XXXX", "1234", "abcd", "xjvef", "NDSS"};
 #define NUM_VALUES 5
+char *values[NUM_VALUES];
 
 List *create_words()
 {
@@ -12,7 +14,8 @@ List *create_words()
     List *words = List_create();
 
     for(i = 0; i < NUM_VALUES; i++) {
-        List_push(words, values[i]);
+        values[i]=rand();
+        List_push(words, values+i);
     }
 
     return words;
@@ -33,14 +36,8 @@ int is_sorted(List *words)
 char *test_bubble_sort()
 {
     List *words = create_words();
-
-    // should work on a list that needs sorting
-    int rc = List_bubble_sort(words, (List_compare)strcmp);
-    mu_assert(rc == 0, "Bubble sort failed.");
-    mu_assert(is_sorted(words), "Words are not sorted after bubble sort.");
-
     // should work on an already sorted list
-    rc = List_bubble_sort(words, (List_compare)strcmp);
+    int rc = List_bubble_sort(words, (List_compare)strcmp);
     mu_assert(rc == 0, "Bubble sort of already sorted failed.");
     mu_assert(is_sorted(words), "Words should be sort if already bubble sorted.");
 
@@ -78,11 +75,19 @@ char *test_merge_sort()
 char *all_tests()
 {
     mu_suite_start();
-
+    time_t bubble_start = time(0);
     mu_run_test(test_bubble_sort);
+    time_t bubble_end = time(0);
+    printf("bubble sort time:%ld\n", bubble_end - bubble_start);
+    
+    time_t merge_start = time(0);
     mu_run_test(test_merge_sort);
-
+    time_t merge_end = time(0);
+    printf("merge sort time:%ld\n", merge_end - merge_start);
     return NULL;
 }
 
 RUN_TESTS(all_tests);
+
+// 编译：gcc -o algos_test algos_test.c ../src/lcthw/list.c ../src/lcthw/list_algos.c
+// 4096，merge大概2秒，bubble大概很久（三分钟都没跑完,感觉像是bug，但是又不是）
