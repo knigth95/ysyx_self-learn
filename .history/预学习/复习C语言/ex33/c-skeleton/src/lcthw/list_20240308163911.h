@@ -1,7 +1,6 @@
 #ifndef lcthw_List_h
 #define lcthw_List_h
 
-#include "list_algos.h"
 #include <stdlib.h>
 
 struct ListNode;
@@ -36,7 +35,7 @@ void *List_shift(List *list);
 void *List_remove(List *list, ListNode *node);
 
 void *List_swap(ListNode *a,ListNode *b);
-List *List_merge(List *left,List *right,List_compare cmp);
+List *List_merge(List)
 List *List_cpoy(List *list);
 
 #define LIST_FOREACH(L, S, M, V) ListNode *_node = NULL;\

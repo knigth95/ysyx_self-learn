@@ -22,7 +22,7 @@ int List_bubble_sort(List *list,List_compare cmp){
     return 0;
 }
 
-inline List *List_merge(List *left,List *right,List_compare cmp){
+inline List *List_merge(List *left,List *right,List_comare cmp){
     List *result=List_create();
     void *val=NULL;
     while(List_count(left)>0 || List_count(right)>0){
@@ -45,7 +45,7 @@ inline List *List_merge(List *left,List *right,List_compare cmp){
     return result;
 }
 
-List *List_merge_sort(List *list,List_compare cmp){
+List *List_merge_sort(List *list,List_comare cmp){
     if(List_count(list)<=1) return list;
     List *left=List_create();
     List *right=List_create();

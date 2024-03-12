@@ -45,7 +45,7 @@ inline List *List_merge(List *left,List *right,List_compare cmp){
     return result;
 }
 
-List *List_merge_sort(List *list,List_compare cmp){
+List *List_merge_sort(List *list,List_comare cmp){
     if(List_count(list)<=1) return list;
     List *left=List_create();
     List *right=List_create();
