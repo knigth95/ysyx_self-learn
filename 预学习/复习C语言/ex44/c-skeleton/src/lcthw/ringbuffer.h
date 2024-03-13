@@ -1,7 +1,7 @@
 #ifndef _lcthw_RingBuffer_h
 #define _lcthw_RingBuffer_h
 
-#include <bstrlib.h>
+#include "bstrlib.h"
 
 typedef struct {
     char *buffer;
@@ -11,23 +11,14 @@ typedef struct {
 } RingBuffer;
 
 RingBuffer *RingBuffer_create(int length);
-
 void RingBuffer_destroy(RingBuffer *buffer);
-
 int RingBuffer_read(RingBuffer *buffer, char *target, int amount);
-
 int RingBuffer_write(RingBuffer *buffer, char *data, int length);
-
 int RingBuffer_empty(RingBuffer *buffer);
-
 int RingBuffer_full(RingBuffer *buffer);
-
 int RingBuffer_available_data(RingBuffer *buffer);
-
 int RingBuffer_available_space(RingBuffer *buffer);
-
 bstring RingBuffer_gets(RingBuffer *buffer, int amount);
-
 #define RingBuffer_available_data(B) (((B)->end + 1) % (B)->length - (B)->start - 1)
 
 #define RingBuffer_available_space(B) ((B)->length - (B)->end - 1)
@@ -43,9 +34,16 @@ bstring RingBuffer_gets(RingBuffer *buffer, int amount);
 #define RingBuffer_starts_at(B) ((B)->buffer + (B)->start)
 
 #define RingBuffer_ends_at(B) ((B)->buffer + (B)->end)
-
+//读
 #define RingBuffer_commit_read(B, A) ((B)->start = ((B)->start + (A)) % (B)->length)
-
+//写
 #define RingBuffer_commit_write(B, A) ((B)->end = ((B)->end + (A)) % (B)->length)
+// static inline void RingBuffer_commit_write(RingBuffer *buffer, int length) {
+//     buffer->end = (buffer->end + length) % buffer->length;
+// }
+
+// static inline void RingBuffer_commit_read(RingBuffer *buffer, int amount) {
+//     buffer->start = (buffer->start + amount) % buffer->length;
+// }
 
 #endif

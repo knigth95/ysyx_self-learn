@@ -3,8 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <lcthw/dbg.h>
+#include "dbg.h"
 #include "ringbuffer.h"
+#include "bstrlib.h"
 
 RingBuffer *RingBuffer_create(int length)
 {
@@ -13,7 +14,6 @@ RingBuffer *RingBuffer_create(int length)
     buffer->start = 0;
     buffer->end = 0;
     buffer->buffer = calloc(buffer->length, 1);
-
     return buffer;
 }
 
@@ -30,20 +30,29 @@ int RingBuffer_write(RingBuffer *buffer, char *data, int length)
     if(RingBuffer_available_data(buffer) == 0) {
         buffer->start = buffer->end = 0;
     }
-
     check(length <= RingBuffer_available_space(buffer),
             "Not enough space: %d request, %d available",
             RingBuffer_available_data(buffer), length);
 
     void *result = memcpy(RingBuffer_ends_at(buffer), data, length);
     check(result != NULL, "Failed to write data into buffer.");
-
     RingBuffer_commit_write(buffer, length);
 
     return length;
 error:
     return -1;
 }
+
+
+// void RingBuffer_commit_write(RingBuffer *buffer, int length) {
+//     assert(buffer != NULL);
+//     buffer->end = (buffer->end + length) % buffer->length;
+// }
+
+// void RingBuffer_commit_read(RingBuffer *buffer, int amount) {
+//     assert(buffer != NULL);
+//     buffer->start = (buffer->start + amount) % buffer->length;
+// }
 
 int RingBuffer_read(RingBuffer *buffer, char *target, int amount)
 {
@@ -64,6 +73,22 @@ int RingBuffer_read(RingBuffer *buffer, char *target, int amount)
 error:
     return -1;
 }
+
+// bstring RingBuffer_gets(RingBuffer *buffer, int amount) {
+//     // 确保请求的数量不超过缓冲区中的数据量
+//     if(amount > RingBuffer_available_data(buffer)) {
+//         amount = RingBuffer_available_data(buffer);
+//     }
+
+//     // 使用bstrlib的blk2bstr函数创建新的bstring
+//     bstring result = blk2bstr(RingBuffer_starts_at(buffer), amount);
+//     if (result) {
+//         // 成功创建bstring后，提交读操作
+//         RingBuffer_commit_read(buffer, amount);
+//     }
+
+//     return result;
+// }
 
 bstring RingBuffer_gets(RingBuffer *buffer, int amount)
 {
