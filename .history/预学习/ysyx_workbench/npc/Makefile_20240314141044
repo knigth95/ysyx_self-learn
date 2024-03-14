@@ -1,0 +1,32 @@
+all:
+	@echo "Compiling and running simulation."
+
+VSRCS = $(shell find vsrc -name "*.v")
+CSRCS = $(shell find csrc -name "*.cpp")
+
+INCLUDE = ./vsrc/include
+
+sim:
+	@echo "Simulating RTL..."
+	@echo $(VSRCS)
+	verilator --trace --cc --exe --build --trace\
+    --top-module example \
+    # -I$(INCLUDE) $(CSRCS) $(VSRCS) \
+	-CFLAGS "-std=c++11" \
+	-LDFLAGS -lreadline
+	@echo "Simulation compiled successfully."
+
+wave: sim
+	@echo "Launching GTKWave..."
+	gtkwave ./obj_dir/sim.vcd
+
+count:
+	@echo "Counting lines of code..."
+	find . -name "sim_main.cpp" -or -name "*.[vc]" | xargs wc -l
+
+clean:
+	@echo "Cleaning up..."
+	rm -rf obj_dir
+	rm -f wave.vcd
+
+#include ../Makefile

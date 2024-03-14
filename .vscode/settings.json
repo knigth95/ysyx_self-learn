@@ -8,5 +8,6 @@
         "list.h": "c",
         "dbg.h": "c",
         "stdio.h": "c"
-    }
+    },
+    "digital-ide.welcome.show": false
 }

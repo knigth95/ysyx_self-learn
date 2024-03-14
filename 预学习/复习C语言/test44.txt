@@ -1,0 +1,82 @@
+#undef NDEBUG
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "dbg.h" // 确保您有这个头文件，或者移除相关的调试宏
+#include "ringbuffer.h" // 确保您有这个头文件，用于定义RingBuffer等
+
+// 检查和调试宏的简单实现，如果您没有dbg.h
+#ifndef NDEBUG
+#define debug(M, ...)
+#else
+#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+#endif
+
+#define check(A, M, ...) if(!(A)) { debug(M, ##__VA_ARGS__); errno=0; goto error; }
+#define check_debug(A, M, ...) if(!(A)) { debug(M, ##__VA_ARGS__); errno=0; goto error; }
+
+typedef struct bstring {
+    int len;
+    char *data;
+} bstring;
+
+// 以下是环形缓冲区的基本操作的实现
+RingBuffer *RingBuffer_create(int length) {
+    RingBuffer *buffer = calloc(1, sizeof(RingBuffer));
+    buffer->length = length + 1;
+    buffer->start = 0;
+    buffer->end = 0;
+    buffer->buffer = calloc(buffer->length, 1);
+    return buffer;
+}
+
+void RingBuffer_destroy(RingBuffer *buffer) {
+    if (buffer) {
+        free(buffer->buffer);
+        free(buffer);
+    }
+}
+
+int RingBuffer_write(RingBuffer *buffer, char *data, int length) {
+    if (RingBuffer_available_data(buffer) == 0) {
+        buffer->start = buffer->end = 0;
+    }
+
+    check(length <= RingBuffer_available_space(buffer),
+          "Not enough space: %d request, %d available",
+          length, RingBuffer_available_space(buffer));
+
+    void *result = memcpy(RingBuffer_ends_at(buffer), data, length);
+    check(result != NULL, "Failed to write data into buffer.");
+
+    RingBuffer_commit_write(buffer, length);
+    return length;
+
+error:
+    return -1;
+}
+
+int RingBuffer_read(RingBuffer *buffer, char *target, int amount) {
+    check_debug(amount <= RingBuffer_available_data(buffer),
+                "Not enough in the buffer: has %d, needs %d",
+                RingBuffer_available_data(buffer), amount);
+
+    void *result = memcpy(target, RingBuffer_starts_at(buffer), amount);
+    check(result != NULL, "Failed to write buffer into data.");
+
+    RingBuffer_commit_read(buffer, amount);
+
+    if (buffer->end == buffer->start) {
+        buffer->start = buffer->end = 0;
+    }
+
+    return amount;
+
+error:
+    return -1;
+}
+
+// 实现 RingBuffer_gets, RingBuffer_available_data, RingBuffer_available_space 等函数
+// 根据您的具体需求来完成这些函数的实现
+
