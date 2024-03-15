@@ -3,7 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/home/knight/桌面/College-Class/ysyx/预学习/ysyx_workbench/nvboard/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
