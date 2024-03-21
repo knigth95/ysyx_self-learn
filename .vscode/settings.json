@@ -9,5 +9,6 @@
         "dbg.h": "c",
         "stdio.h": "c"
     },
-    "digital-ide.welcome.show": false
+    "digital-ide.welcome.show": false,
+    "digital-ide.dont-show-again.propose.issue": true
 }

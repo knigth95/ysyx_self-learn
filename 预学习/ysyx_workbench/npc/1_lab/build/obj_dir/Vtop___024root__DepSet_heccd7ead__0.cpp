@@ -6,21 +6,18 @@
 
 #include "Vtop___024root.h"
 
+extern const VlUnpacked<CData/*0:0*/, 64> Vtop__ConstPool__TABLE_ha665f9e3_0;
+
 VL_INLINE_OPT void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___ico_sequent__TOP__0\n"); );
+    // Init
+    CData/*5:0*/ __Vtableidx1;
+    __Vtableidx1 = 0;
     // Body
-    vlSelf->f = (1U & (((IData)(vlSelf->a) & (IData)(
-                                                     (0U 
-                                                      == (IData)(vlSelf->b)))) 
-                       | ((((IData)(vlSelf->a) >> 1U) 
-                           & (IData)((1U == (IData)(vlSelf->b)))) 
-                          | ((((IData)(vlSelf->a) >> 2U) 
-                              & (IData)((2U == (IData)(vlSelf->b)))) 
-                             | (((IData)(vlSelf->a) 
-                                 >> 3U) & (IData)((3U 
-                                                   == (IData)(vlSelf->b))))))));
+    __Vtableidx1 = (((IData)(vlSelf->a) << 2U) | (IData)(vlSelf->b));
+    vlSelf->f = Vtop__ConstPool__TABLE_ha665f9e3_0[__Vtableidx1];
 }
 
 void Vtop___024root___eval_ico(Vtop___024root* vlSelf) {
