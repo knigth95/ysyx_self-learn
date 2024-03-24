@@ -10,9 +10,12 @@
 Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new Vtop__Syms(contextp(), _vcname__, this)}
+    , clk{vlSymsp->TOP.clk}
     , a{vlSymsp->TOP.a}
-    , b{vlSymsp->TOP.b}
-    , f{vlSymsp->TOP.f}
+    , s{vlSymsp->TOP.s}
+    , y{vlSymsp->TOP.y}
+    , rst{vlSymsp->TOP.rst}
+    , led{vlSymsp->TOP.led}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context
