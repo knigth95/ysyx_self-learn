@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define MAX_NODES 1000
+
+int main(){
+    int i,j,n,m;
+    scanf("%d %d",&n,&m);
+
+    int graph[MAX_NODES][MAX_NODES];
+    for(i=0;i<n;i++){
+        for(j=0;j<n;j++){
+            graph[i]
+        }
+    }
+}

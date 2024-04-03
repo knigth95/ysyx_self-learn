@@ -10,5 +10,8 @@
         "stdio.h": "c"
     },
     "digital-ide.welcome.show": false,
-    "digital-ide.dont-show-again.propose.issue": true
+    "digital-ide.dont-show-again.propose.issue": true,
+    "files.watcherExclude": {
+        "**/target": true
+    }
 }

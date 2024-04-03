@@ -12,12 +12,25 @@ VL_ATTR_COLD void Vtop___024root___eval_static(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_static\n"); );
 }
 
+VL_ATTR_COLD void Vtop___024root___eval_initial__TOP(Vtop___024root* vlSelf);
+
 VL_ATTR_COLD void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial\n"); );
     // Body
-    vlSelf->__Vtrigrprev__TOP__clk = vlSelf->clk;
+    Vtop___024root___eval_initial__TOP(vlSelf);
+}
+
+VL_ATTR_COLD void Vtop___024root___eval_initial__TOP(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial__TOP\n"); );
+    // Body
+    vlSelf->top__DOT__i0__DOT__i0__DOT__key_list[0U] = 3U;
+    vlSelf->top__DOT__i0__DOT__i0__DOT__key_list[1U] = 2U;
+    vlSelf->top__DOT__i0__DOT__i0__DOT__key_list[2U] = 1U;
+    vlSelf->top__DOT__i0__DOT__i0__DOT__key_list[3U] = 0U;
 }
 
 VL_ATTR_COLD void Vtop___024root___eval_final(Vtop___024root* vlSelf) {
@@ -110,9 +123,6 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__act(Vtop___024root* vlSelf) {
     if ((1U & (~ (IData)(vlSelf->__VactTriggered.any())))) {
         VL_DBG_MSGF("         No triggers active\n");
     }
-    if (vlSelf->__VactTriggered.at(0U)) {
-        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk)\n");
-    }
 }
 #endif  // VL_DEBUG
 
@@ -125,9 +135,6 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__nba(Vtop___024root* vlSelf) {
     if ((1U & (~ (IData)(vlSelf->__VnbaTriggered.any())))) {
         VL_DBG_MSGF("         No triggers active\n");
     }
-    if (vlSelf->__VnbaTriggered.at(0U)) {
-        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk)\n");
-    }
 }
 #endif  // VL_DEBUG
 
@@ -136,12 +143,16 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___ctor_var_reset\n"); );
     // Body
-    vlSelf->a = 0;
-    vlSelf->s = 0;
+    vlSelf->x0 = 0;
+    vlSelf->x1 = 0;
+    vlSelf->x2 = 0;
+    vlSelf->x3 = 0;
     vlSelf->y = 0;
-    vlSelf->clk = 0;
-    vlSelf->rst = 0;
-    vlSelf->led = 0;
-    vlSelf->top__DOT__count = 0;
-    vlSelf->__Vtrigrprev__TOP__clk = 0;
+    vlSelf->f = 0;
+    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+        vlSelf->top__DOT__i0__DOT__i0__DOT__key_list[__Vi0] = 0;
+    }
+    for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
+        vlSelf->top__DOT__i0__DOT__i0__DOT__data_list[__Vi0] = 0;
+    }
 }
